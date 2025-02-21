@@ -4,6 +4,8 @@
 
 A simple, client-side web application built with React, TypeScript, and Vite to help users track their thoughts and emotions using the **ABC model** from Cognitive Behavioral Therapy (CBT). The app allows you to create, edit, and review entries, with data stored locally in your browser using IndexedDB.
 
+**Demo**: https://abc-form-online-aoiul3zf8-b9sks-projects.vercel.app
+
 ## Features
 - **Create ABC Entries**: Fill out a form with Date & Time, Emotions, Actions, Activation Event, Beliefs, and Thinking Errors.
 - **View Past Entries**: Browse a paginated list with infinite scrolling (20 entries per load).
