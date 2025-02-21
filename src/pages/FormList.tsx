@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react"; // Add useRef
 import { useNavigate } from "react-router-dom";
 import EntryList from "../components/EntryList";
 import { formRepository } from "../db/repository";
@@ -7,10 +7,14 @@ import { seedDatabase } from "../db/seed";
 export default function FormList() {
   const [initialEntries, setInitialEntries] = useState([]);
   const navigate = useNavigate();
+  const hasSeeded = useRef(false); // Track if seeding has run
 
   useEffect(() => {
+    if (hasSeeded.current) return; // Skip if already seeded in this session
+    hasSeeded.current = true;
+
     seedDatabase().then(() =>
-        // @ts-ignore
+      // @ts-ignore
       formRepository.getPaginatedForms(0, 20).then(setInitialEntries)
     );
   }, []);
