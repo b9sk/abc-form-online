@@ -11,7 +11,7 @@ export default function Hero() {
         ABC model.
       </p>
       <button
-        onClick={() => navigate("/forms/add")}
+        onClick={() => navigate("/forms")}
         className="bg-blue-500 text-white p-3 rounded"
       >
         Start Tracking
