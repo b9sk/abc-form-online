@@ -35,6 +35,19 @@ export default function FormEdit() {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Edit ABC Entry</h1>
       <ABCForm initialForm={form} onSubmit={handleSubmit} />
+
+      <hr className="my-4" />
+
+      <div>
+        <button
+          type="button"
+          onClick={() => navigate("/forms")}
+          className="bg-gray-300 p-2 rounded"
+        >
+          Go back without saving
+        </button>
+      </div>
+
       <button
         onClick={() => setShowDeleteConfirm(true)}
         className="mt-4 bg-red-500 text-white p-2 rounded"
