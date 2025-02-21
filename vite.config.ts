@@ -6,5 +6,4 @@ export default defineConfig({
     server: {
         open: true,
     },
-    base: "/abc-form-online/", // Replace with your repo name
 });
