@@ -1,23 +1,33 @@
-import { useEffect, useState, useRef } from "react"; // Add useRef
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import EntryList from "../components/EntryList";
 import { formRepository } from "../db/repository";
 import { seedDatabase } from "../db/seed";
 
 export default function FormList() {
-  const [initialEntries, setInitialEntries] = useState([]);
+  const [entries, setEntries] = useState([]); // Rename for clarity
+  const [loading, setLoading] = useState(true); // Add loading state
   const navigate = useNavigate();
-  const hasSeeded = useRef(false); // Track if seeding has run
+  const hasSeeded = useRef(false);
 
   useEffect(() => {
-    if (hasSeeded.current) return; // Skip if already seeded in this session
+    if (hasSeeded.current) return;
     hasSeeded.current = true;
 
-    seedDatabase().then(() =>
+    const loadData = async () => {
+      await seedDatabase(); // Seed the DB first
+      const initialEntries = await formRepository.getPaginatedForms(0, 20); // Then fetch
       // @ts-ignore
-      formRepository.getPaginatedForms(0, 20).then(setInitialEntries)
-    );
+      setEntries(initialEntries);
+      setLoading(false); // Update UI when done
+    };
+
+    loadData();
   }, []);
+
+  if (loading) {
+    return <div className="p-4">Loading...</div>; // Show loading indicator
+  }
 
   return (
     <div className="p-4">
@@ -30,7 +40,7 @@ export default function FormList() {
           New Entry
         </button>
       </div>
-      <EntryList initialEntries={initialEntries} />
+      <EntryList initialEntries={entries} />
     </div>
   );
 }
